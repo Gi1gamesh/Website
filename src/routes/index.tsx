@@ -10,7 +10,7 @@ export default component$(() => {
   );
 });
 
-const description = "Hi I'm Kevin. This is my personal blog where I will occasionally post articles about programming, software architecture .NET, TypeScript, C#, Infrastructure, Azure and various other topics.";
+const description = "Hi I'm Kevin. This is my personal blog where I will occasionally post articles about programming, software architecture C#, .NET, TypeScript, Infrastructure, Azure and various other topics.";
 const title ='Kevin Mckenny';
 
 export const head: DocumentHead = {
