@@ -1,0 +1,72 @@
+/**
+ * WHAT IS THIS FILE?
+ *
+ * Globally applied styles. No matter which components are in the page or matching route,
+ * the styles in here will be applied to the Document, without any sort of CSS scoping.
+ *
+ */
+ * {/* font-family: 'Roboto Light', 'Roboto Medium', 'Roboto'; */}
+
+img {
+  opacity: .75;
+  transition: opacity .5s ease-in-out;
+}
+
+img:hover {
+  opacity: 1;
+}
+
+
+body {
+  font-family: '';
+  min-height: 100vh;
+  background-color: var(--site-background);
+  color: var(--site-text);
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+:root {
+  --site-background:
+    rgb(32, 31, 36);
+  --light-background:
+
+    rgb(37, 36, 40);
+  --site-context:
+    rgb(50, 49, 52);
+  --site-text:
+    rgba(255, 255, 255, 0.9);
+}
+
+main {
+  overflow: hidden;
+  text-align: left;
+  margin-top: 1rem
+}
+
+.content-wrapper {
+  max-width: 1040px;
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.main-content {
+  flex: 1;
+  justify-content: left;
+}

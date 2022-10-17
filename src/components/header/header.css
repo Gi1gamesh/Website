@@ -1,0 +1,36 @@
+header {
+  background: var(--light-background);
+}
+
+header .logo {
+  margin: auto;
+}
+.content-wrapper span {
+  margin: auto 1em;
+}
+
+.social-links {
+  justify-content: right;
+  display: flex;
+  align-items: center;
+  padding: 3px 10px 0 0;
+  flex: 1;
+}
+
+.social-links a {
+  padding: 5px 5px;
+  text-decoration: none;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+}

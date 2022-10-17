@@ -1,0 +1,19 @@
+footer {
+    background: var(--light-background);
+    padding: 15px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+a,
+footer a:visited,
+a:hover,
+a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+.logo a img{
+    max-width: 32px;;
+}
+
