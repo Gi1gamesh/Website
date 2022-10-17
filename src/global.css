@@ -5,7 +5,7 @@
  * the styles in here will be applied to the Document, without any sort of CSS scoping.
  *
  */
- * {/* font-family: 'Roboto Light', 'Roboto Medium', 'Roboto'; */}
+ * {font-family: 'Roboto Light', 'Roboto Medium', 'Roboto';}
 
 img {
   opacity: .75;

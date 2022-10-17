@@ -2,10 +2,10 @@ import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './profileImage.css?inline';
 
 type Props = {
-    size: Number
+    size: number
 }
 
-export default component$(() => {
+export default component$(({size}: Props) => {
   useStylesScoped$(styles);
-  return ( <img alt="profile picture" class="profile-gravatar" src="/profile.png" />);
+  return ( <img width={size} height={size} alt="profile picture" class="profile-gravatar" src="/profile.png" />);
 });
