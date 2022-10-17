@@ -5,7 +5,7 @@
  * the styles in here will be applied to the Document, without any sort of CSS scoping.
  *
  */
- * {font-family: 'Roboto Light', 'Roboto Medium', 'Roboto';}
+ * {font-family: '-apple-system','system-ui','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica Neue','Fira Sans','Ubuntu,Oxygen','Oxygen Sans','Cantarell','Droid Sans'}
 
 img {
   opacity: .75;
@@ -42,7 +42,6 @@ body {
 main {
   overflow: hidden;
   text-align: left;
-  margin-top: 1rem
 }
 
 .content-wrapper {
@@ -53,6 +52,10 @@ main {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+}
+
+article {
+  padding: 1rem;
 }
 
 a,
