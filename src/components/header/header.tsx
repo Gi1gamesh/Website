@@ -14,7 +14,7 @@ export default component$(() => {
     <header>
       <div class="content-wrapper" >
         <div class="logo">
-          <a href="/" >
+          <a href="https://www.kevinmckenny.com" >
             <Logo />
           </a>
         </div>
