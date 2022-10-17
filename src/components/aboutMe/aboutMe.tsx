@@ -11,7 +11,7 @@ export default component$(() => {
                 <h1>About Me</h1>
             </header>
             <p>
-                Hi I'm Kevin! I am an experienced software developer in Ottawa, Canada.
+                Hi I'm Kevin! I'm an experienced software developer based out of Ottawa, Canada.
             </p>
             <p>
                 You will typically find me writing code in .NET and TypeScript. I have a passion for software design & architecture, and I'm always fascinated by how simplicity can create the most elegant solutions to our problems.
