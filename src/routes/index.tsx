@@ -22,7 +22,7 @@ export const head: DocumentHead = {
     {name: "og:site_name",    content: "Kevin Mckenny"},
     {name: 'og:title',        content: title},
     {name: 'og:description',  content: description },
-    {name: 'description',  content: description },
+    {name: 'description',     content: description },
     {name: 'og:url',          content: "www.kevinmckenny.com"},
     {name: 'og:image',        content:"./background.png" },
     {name: 'og:image:url',    content:"./background.png" },
