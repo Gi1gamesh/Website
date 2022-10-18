@@ -6,7 +6,7 @@ export default component$(({title, description, url, created}: ArticleData) => {
     return (
         <div class="card">
             <div class="container">
-                <h4><b>{title}</b></h4>
+                <h3>{title}</h3>
                 <p>{description}</p>
             </div>
         </div>

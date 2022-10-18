@@ -1,0 +1,11 @@
+.header-info {
+    display: flex;
+}
+
+.header-info-text{
+    display: flex; 
+}
+
+p {
+    padding-left: 0.75rem;
+}
