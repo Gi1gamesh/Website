@@ -4,6 +4,7 @@ import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { partytownVite } from "@builder.io/partytown/utils";
 import { join } from "path";
+import articleWatcher from './articleWatcher';
 
 export default defineConfig(() => {
   return {
@@ -13,6 +14,10 @@ export default defineConfig(() => {
       qwikVite(),
       tsconfigPaths(),
       partytownVite({ dest: join(__dirname, "public", "~partytown") }),
+      articleWatcher({
+        watchDirectory: '/src/routes/docs',
+        output: './public/manifest.json'
+    })
     ],
   };
 });
