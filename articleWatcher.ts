@@ -1,15 +1,18 @@
 import { PluginOption, ViteDevServer, WebSocketServer } from "vite";
 
 import fs from "fs";
+import { readdir } from 'fs/promises'
 import path from 'path'
 
 import matter from 'front-matter';
+
 import chokidar, { FSWatcher } from "chokidar";
 
-export type fileWatcherConfig = {
-    watchDirectory: string,
-    output: string
+const config = {
+    watchDirectory: 'articles',
+
 }
+
 
 export type MatterOutputType<T> = {
     attributes: T,
@@ -22,8 +25,7 @@ export type MatterOutputType<T> = {
     created: number
 }
 
-export default function fileWatcher(userConfig: fileWatcherConfig): PluginOption {
-    const config: fileWatcherConfig = userConfig
+export default function fileWatcher(): PluginOption {
     let rootDir: string
     let publicDir: string
     let command: string
@@ -34,6 +36,11 @@ export default function fileWatcher(userConfig: fileWatcherConfig): PluginOption
         const watchDirFullPath = path.join(rootDir, config.watchDirectory)
         const files = fs.readdirSync(watchDirFullPath);
 
+        const getDirectories = async source =>
+  (await readdir(source, { withFileTypes: true }))
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
+    
         // regenerate
         const manifest: any[] = []
         files.forEach(fileName => {
