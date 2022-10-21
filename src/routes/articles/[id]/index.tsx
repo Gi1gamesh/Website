@@ -1,6 +1,5 @@
 import { Resource, component$ } from '@builder.io/qwik';
 import { RequestHandler, useLocation, useEndpoint } from '@builder.io/qwik-city';
-import { json } from 'stream/consumers';
 const modules = import.meta.glob('../../../../public/*.json');
 
 export const onGet: RequestHandler<any> = async ({ params }) => {
