@@ -19,7 +19,7 @@ export default component$(() => {
           </a>
         </div>
         <span>
-          {head.title}
+          Kevin Mckenny
         </span>
         <nav class="social-links">
           <a href='https://github.com/Gi1gamesh' title='Github' target="_blank">

@@ -1,5 +1,6 @@
 header {
   background: var(--light-background);
+  box-shadow: rgb(15 15 15 / 40%) 0px 0.15rem 0.7rem;
 }
 
 header .logo {

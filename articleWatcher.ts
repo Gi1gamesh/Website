@@ -9,8 +9,9 @@ import matter from 'front-matter';
 import chokidar, { FSWatcher } from "chokidar";
 
 const config = {
-    watchDirectory: 'articles',
-
+    watchDirectory: 'src/data/articles/',
+    output: "src/data/article-manifest.json",
+    previewOutput: "src/data/preview-manifest.json"
 }
 
 
@@ -32,39 +33,31 @@ export default function fileWatcher(): PluginOption {
     let watcher: FSWatcher | undefined = undefined;
     let ws: WebSocketServer | undefined = undefined;
 
-    function run() {
+    async function run() {
         const watchDirFullPath = path.join(rootDir, config.watchDirectory)
         const files = fs.readdirSync(watchDirFullPath);
+        const fullManifest: any[] = [];
 
-        const getDirectories = async source =>
-  (await readdir(source, { withFileTypes: true }))
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name)
-    
-        // regenerate
-        const manifest: any[] = []
         files.forEach(fileName => {
             const fileFullPath = path.join(watchDirFullPath, fileName)
-
-            const { birthtime } = fs.statSync(fileFullPath)
             const fileContents = fs.readFileSync(fileFullPath).toString()
-            
+
             const frontMatter = matter(fileContents)
 
-            const fileRelativePath = path.relative(publicDir, fileFullPath);
+            const fileInfo = {
+                ...frontMatter.attributes as any,
+                path: fileName.substring(0, fileName.lastIndexOf('.'))
+            }
 
-            const fileInfo = JSON.parse(JSON.stringify(frontMatter)) as MatterOutputType<any>;
-            fileInfo.path = fileRelativePath
-            fileInfo.filename = fileName
-            fileInfo.filenameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
-            fileInfo.frontmatter = ''
-            fileInfo.created = birthtime.getUTCDate();
-            
-            manifest.push(fileInfo);
+            fullManifest.push(fileInfo);
         });
 
-        const outputString = JSON.stringify(manifest, null, 2);
-        fs.writeFileSync(config.output, outputString, { encoding: 'utf8', flag: 'w' })
+        fullManifest.sort((a,b) => a.created - b.created);
+        const outputString = JSON.stringify(fullManifest, null, 0);
+        const previewOutputString = JSON.stringify(fullManifest.slice(0,9), null,0);
+        
+        fs.writeFileSync(config.output, outputString, { encoding: 'utf8', flag: 'w' });
+        fs.writeFileSync(config.previewOutput, previewOutputString, { encoding: 'utf8', flag: 'w' });
 
         ws?.send({ type: 'full-reload', path: '*' })
     }
@@ -79,8 +72,7 @@ export default function fileWatcher(): PluginOption {
             rootDir = resolvedConfig.root
             command = resolvedConfig.command
         },
-
-        buildStart(options) {
+        buildStart: () => {
             run();
 
             if (command === 'serve') {
@@ -88,22 +80,14 @@ export default function fileWatcher(): PluginOption {
                 const newWatcher = chokidar.watch(fullPath, { ignoreInitial: true });
 
                 newWatcher
-                    .on('add', function (path) {
-                        run();
-                    })
-                    .on('change', function (path) {
-                        run();
-                    })
-                    .on('unlink', function (path) {
-                        run();
-                    });
+                    .on('add', run)
+                    .on('change', run)
+                    .on('unlink', run);
 
                 watcher = newWatcher;
             }
         },
-
         buildEnd(err?: Error) {
-            console.log('build end')
             watcher?.close();
         }
     }

@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+.details {
+    display: flex;
+}
+
+.details-text{
+    display: flex; 
+}
+
+p {
+    padding-left: 0.75rem;
+}
