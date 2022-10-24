@@ -1,6 +1,8 @@
 export type ArticleData = {
-    title: string,
-    url: string,
-    created: string,
+    title: string
+    path: string
+    created: number
     description: string
+    words: number
+    author?: string
 }
