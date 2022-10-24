@@ -9,9 +9,9 @@ import matter from 'front-matter';
 import chokidar, { FSWatcher } from "chokidar";
 
 const config = {
-    watchDirectory: 'src/data/articles/',
-    output: "src/data/article-manifest.json",
-    previewOutput: "src/data/preview-manifest.json"
+    watchDirectory: 'blogData/articles/',
+    output: "blogData/article-manifest.json",
+    previewOutput: "blogData/preview-manifest.json"
 }
 
 
@@ -52,7 +52,7 @@ export default function fileWatcher(): PluginOption {
             fullManifest.push(fileInfo);
         });
 
-        fullManifest.sort((a,b) => a.created - b.created);
+        fullManifest.sort((a,b) => b.created - a.created);
         const outputString = JSON.stringify(fullManifest, null, 0);
         const previewOutputString = JSON.stringify(fullManifest.slice(0,9), null,0);
         
@@ -63,7 +63,7 @@ export default function fileWatcher(): PluginOption {
     }
 
     return {
-        name: 'generate-files-manifest',
+        name: 'generate-file-manifest',
         configureServer(server: ViteDevServer) {
             ws = server.ws
         },

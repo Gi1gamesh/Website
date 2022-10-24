@@ -1,19 +1,20 @@
-import { Resource, component$, JSXNode, } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { RequestHandler, DocumentHead, useLocation } from '@builder.io/qwik-city';
 import Header from '../../../components/headerInfo/headerInfo';
 
-export const modules = import.meta.glob('../../../data/articles/*.mdx');
+
+export const modules = import.meta.glob('../../../../blogData/articles/*.mdx');
 
 
 export const onGet: RequestHandler<any> = async ({ params }) => {
-  const post: any = await modules[`../../../data/articles/${params.id}.mdx`]();
+  const post: any = await modules[`../../../../blogData/articles/${params.id}.mdx`]();
   return ({ metadata: post.frontmatter, head: post.head })
 };
 
 
 export default component$((async () => {
   const { params } = useLocation();
-  const post: any = await modules[`../../../data/articles/${params.id}.mdx`]();
+  const post: any = await modules[`../../../../blogData/articles/${params.id}.mdx`]();
   const { words, title, created } = post.frontmatter;
   return (<article>
     <Header date={created} title={title} wordCount={words} />
