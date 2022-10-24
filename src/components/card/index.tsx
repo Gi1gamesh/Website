@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { ArticleData } from '~/types';
 
-export default component$(({title, description, url, created}: ArticleData) => {
+export default component$(({title, description, path, created}: ArticleData) => {
 
     return (
         <div class="card">
