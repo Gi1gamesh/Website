@@ -1,4 +1,4 @@
-import { RequestHandler, useLocation  } from '@builder.io/qwik-city';
+import { RequestHandler  } from '@builder.io/qwik-city';
 import { ArticleData } from '~/types';
 import posts from '../../../blogData/article-manifest.json';
 import {description, author} from '../../../blogData/site-metadata.json';

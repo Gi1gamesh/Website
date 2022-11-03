@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default component$(({ article }: Props) => {
-    const { title, description, path, created, words } = article;
+    const { title, description, created, words } = article;
     useStylesScoped$(styles);
     return (
         <article class="card">
