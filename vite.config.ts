@@ -8,7 +8,6 @@ import articleWatcher from './articleWatcher';
 
 export default defineConfig(() => {
   return {
-    ssr: { target: "webworker", noExternal: true },
     plugins: [
       qwikCity(),
       qwikVite(),
