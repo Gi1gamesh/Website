@@ -4,7 +4,9 @@
   "exclude": [
     "/assets/*",
     "/build/*",
-    "/favicon.ico",
+    "/background.png",
+    "/profile.png",
+    "/favicon.svg",
     "/manifest.json",
     "/robots.txt",
     "/service-worker.js",
