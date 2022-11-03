@@ -1,14 +1,24 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { ArticleData } from '~/types';
+import Info from '../articleInfo/articleInfo';
+import styles from './index.css?inline';
 
-export default component$(({title, description, path, created}: ArticleData) => {
+type Props = {
+    article: ArticleData
+}
 
+export default component$(({ article }: Props) => {
+    const { title, description, created, words } = article;
+    useStylesScoped$(styles);
     return (
-        <div class="card">
+        <article class="card">
             <div class="container">
                 <h3>{title}</h3>
-                <p>{description}</p>
+                <p>{description.length < 400 ? description : description.slice(0, 397) + '...'}</p>
             </div>
-        </div>
+            <div class="info">
+                <Info wordCount={words} date={created} tags={article.tags} />
+            </div>
+        </article>
     );
 });

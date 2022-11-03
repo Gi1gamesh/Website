@@ -73,19 +73,19 @@ export default function fileWatcher(): PluginOption {
             command = resolvedConfig.command
         },
         buildStart: () => {
-            run();
+            // run();
 
-            if (command === 'serve') {
-                const fullPath = path.join(rootDir, config.watchDirectory)
-                const newWatcher = chokidar.watch(fullPath, { ignoreInitial: true });
+            // if (command === 'serve') {
+            //     const fullPath = path.join(rootDir, config.watchDirectory)
+            //     const newWatcher = chokidar.watch(fullPath, { ignoreInitial: true });
 
-                newWatcher
-                    .on('add', run)
-                    .on('change', run)
-                    .on('unlink', run);
+            //     newWatcher
+            //         .on('add', run)
+            //         .on('change', run)
+            //         .on('unlink', run);
 
-                watcher = newWatcher;
-            }
+            //     watcher = newWatcher;
+            // }
         },
         buildEnd(err?: Error) {
             watcher?.close();

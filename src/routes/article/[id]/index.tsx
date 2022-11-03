@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { RequestHandler, DocumentHead, useLocation } from '@builder.io/qwik-city';
-import Header from '../../../components/headerInfo/headerInfo';
+import Header from '../../../components/articleInfo/articleInfo';
 
 
 export const modules = import.meta.glob('../../../../blogData/articles/*.mdx');
@@ -15,9 +15,14 @@ export const onGet: RequestHandler<any> = async ({ params }) => {
 export default component$((async () => {
   const { params } = useLocation();
   const post: any = await modules[`../../../../blogData/articles/${params.id}.mdx`]();
-  const { words, title, created } = post.frontmatter;
+  const { words, title, created, tags } = post.frontmatter;
   return (<article>
-    <Header date={created} title={title} wordCount={words} />
+    <header>
+      <div class="header">
+        <h1>{title}</h1>
+        <Header date={created} wordCount={words} tags={tags} />
+      </div>
+    </header>
     {post.default()}
   </article>);
 }) as any);

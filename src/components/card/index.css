@@ -1,0 +1,14 @@
+.card {
+    background-color: var(--site-context);
+    box-shadow: rgb(15 15 15 / 40%) 0px 0.15rem 0.7rem;
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    margin: 0.2rem
+}
+
+.info {
+    margin-top: auto;
+}

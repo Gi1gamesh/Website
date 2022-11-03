@@ -2,14 +2,12 @@ import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { Logo } from '../icons/logo';
 import { LinkedInLogo } from '../icons/linkedin';
 import { GithubLogo } from '../icons/github';
-import { useDocumentHead } from '@builder.io/qwik-city';
 
 import styles from './header.css?inline';
 import { TwitterLogo } from '../icons/twitter';
 
 export default component$(() => {
   useStylesScoped$(styles);
-  const head = useDocumentHead();
   return (
     <header>
       <div class="content-wrapper" >
