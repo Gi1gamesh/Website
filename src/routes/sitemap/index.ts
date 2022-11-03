@@ -13,9 +13,18 @@ export const onGet: RequestHandler<any> = async ({ response,url }) => {
             <lastmod>${new Date(posts[0].created).toISOString()}</lastmod>
         </url>
         <url>
-        <loc>${baseUrl}/about</loc>
-        <lastmod>2022-10-24T10:21:24.944Z</lastmod>
-    </url>
+            <loc>${baseUrl}/about</loc>
+            <lastmod>2022-10-24T10:21:24.944Z</lastmod>
+        </url>
+        ${
+            posts
+            .map(p => `
+                <url>
+                <loc>${baseUrl}/article/${p.path}</loc>
+                <lastmod>${new Date(p.created).toISOString()}</lastmod>
+                </url>`)
+            .join('')
+        }
         ${
             posts
             .map(p => `

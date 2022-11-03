@@ -35,6 +35,7 @@ body {
     rgb(37, 36, 40);
   --site-context:
     rgb(50, 49, 52);
+    background-color: rgb(50,49,48);
   --site-text:
     rgba(255, 255, 255, 0.9);
 }

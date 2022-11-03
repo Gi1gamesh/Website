@@ -5,4 +5,5 @@ export type ArticleData = {
     description: string
     words: number
     author?: string
+    tags: string[]
 }

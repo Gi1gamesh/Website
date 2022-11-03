@@ -1,0 +1,39 @@
+.details {
+    display: flex;
+}
+
+.details-text{
+    display: flex; 
+    align-items: center;
+}
+
+.profile {
+    padding-right: 0.5rem;
+}
+
+p, h5 {
+    padding: 0 0.25rem;
+    margin: 0 auto;
+}
+
+.chip {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    padding: 0 0.4rem;
+    border-radius: 12px;
+    background-color: #e4e4e4;
+    padding: 0.2rem 0.3rem;
+    margin: 0 0.25rem;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+ text-decoration: none;
+}
+
+.tags {
+    margin: 0.25rem;
+}
