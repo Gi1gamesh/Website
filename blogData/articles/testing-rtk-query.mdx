@@ -1,8 +1,8 @@
 ---
 title: Writing unit tests for RTK Query 
-description: 
-created: 
-words: 
+description: test
+created:  1667489858619
+words: 0
 tags: ["Testing"]
 author: Kevin Mckenny
 ---
@@ -15,12 +15,62 @@ Since we are writing unit tests and not integration tests we need to figure out 
 RTK Query we can see that they use [msw](https://www.npmjs.com/package/msw) to mock thier API's. We will also use this package.
 
 
+## Prerequisites
+
+
+First we will set up a simple
+
+```typescript
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+const reducerPath = 'api';
+export default createApi({
+    reducerPath,
+    tagTypes: [reducerPath],
+    baseQuery: fetchBaseQuery({ baseUrl: `/${reducerPath}/` }),
+    endpoints: (builder) => ({
+        get: builder.query({
+            query: () => reducerPath,
+            providesTags: [reducerPath ]
+        }),
+        update: builder.mutation({
+            query(item) {
+                return {
+                    url: `${reducerPath}/${item.id}`,
+                    method: 'PUT',
+                    body: item,
+                };
+            },
+            invalidatesTags: [reducerPath]
+        }),
+    }),
+});
+```
+
+```typescript
+import { configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import api from './api.ts';
+
+export const store = configureStore({
+    reducer: {
+        [api.reducerPath]: apireducer,
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware)
+});
+
+setupListeners(store.dispatch);
+
+export type RootState = ReturnType<typeof store.getState>
+export const { useGetQuery, useUpdateMutation, util } = api;
+
+```
+
+
+
+
 ## Setup
 
 ```
-npm install 
 npm install msw --save-dev
 ```
-
-
-

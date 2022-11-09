@@ -22,6 +22,8 @@ export default component$((async () => {
         <h1>{title}</h1>
         <Header date={created} wordCount={words} tags={tags} />
       </div>
+      <br />
+      <br />
     </header>
     {post.default()}
   </article>);
