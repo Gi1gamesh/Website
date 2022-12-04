@@ -13,7 +13,7 @@ export default component$(({ article, rootUrl }: Props) => {
     useStylesScoped$(styles);
     return (
         <article class="card">
-            <a href={`${rootUrl}/article/${path}`}>
+            <a href={`${rootUrl}/article/${path}/`}>
                 <div class="container">
                     <h3>{title}</h3>
                     <p>{description.length < 400 ? description : description.slice(0, 397) + '...'}</p>
