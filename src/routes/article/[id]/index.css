@@ -2,3 +2,9 @@
     display: flex;
     flex-direction: column;
 }
+
+div[data-rehype-pretty-code-fragment] {
+    overflow: auto;
+    background-color: var(--site-context);
+    padding: 1rem;
+}

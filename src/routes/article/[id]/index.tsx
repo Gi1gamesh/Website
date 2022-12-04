@@ -1,10 +1,9 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { RequestHandler, DocumentHead, useLocation } from '@builder.io/qwik-city';
 import Header from '../../../components/articleInfo/articleInfo';
-
+import styles from './index.css?inline'; 
 
 export const modules = import.meta.glob('../../../../blogData/articles/*.mdx');
-
 
 export const onGet: RequestHandler<any> = async ({ params }) => {
   const post: any = await modules[`../../../../blogData/articles/${params.id}.mdx`]();
@@ -13,6 +12,7 @@ export const onGet: RequestHandler<any> = async ({ params }) => {
 
 
 export default component$((async () => {
+  useStylesScoped$(styles);
   const { params } = useLocation();
   const post: any = await modules[`../../../../blogData/articles/${params.id}.mdx`]();
   const { words, title, created, tags } = post.frontmatter;
@@ -37,10 +37,10 @@ export const head: DocumentHead<any> = ({ data, href }) => {
     ],
     meta: [
 
-      { name: "og:site_name", content: "Kevin Mckenny" },
-      { name: 'og:title', content: "Kevin Mckenny" },
-      { name: 'og:description', content: "Kevin Mckenny" },
-      { name: 'description', content: "Kevin Mckenny" },
+      { name: "og:site_name", content:  data.metadata.author },
+      { name: 'og:title', content: data.metadata.title },
+      { name: 'og:description', content: data.metadata.description },
+      { name: 'description', content: data.metadata.description },
       { name: 'og:url', content: href },
       { name: 'og:image', content: "./background.png" },
       { name: 'og:image:url', content: "./background.png" },

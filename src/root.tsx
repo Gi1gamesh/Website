@@ -12,7 +12,7 @@ export default component$(() => {
    * Dont remove the `<head>` and `<body>` elements.
    */
   return (
-    <QwikCity  >
+    <QwikCity>
       <head>
         <meta charSet="utf-8" />
         <RouterHead />

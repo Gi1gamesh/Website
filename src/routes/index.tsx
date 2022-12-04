@@ -7,7 +7,7 @@ import Grid from '../components/cardGrid';
 
 export default component$(() => {
   return (
-    <div class="">
+    <div>
       <AboutMe />
       <Grid articles={articles} />
     </div>
