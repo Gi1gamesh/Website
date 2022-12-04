@@ -30,10 +30,12 @@ const getDescription = (text:string) => {
     return description;
 }
 
-const arrayProps = ['tags']
+const notEqual = (newValue, oldValue) => newValue != oldValue;
+const notExists = (_, oldValue) => !oldValue;
 
 const getWordCount = (text:string) => text.split(' ').filter(x => x.length > 0).length
 
+const arrayProps = ['tags']
 const updateFile = (filePath:string, frontMatter:FrontMatterResult<Attributes>) => {
 
     const props = Object.keys(frontMatter.attributes).map(k => `${k}: ${arrayProps.includes(k) ? `[${frontMatter.attributes[k]}]` : frontMatter.attributes[k]}`).join('\n');
@@ -48,16 +50,16 @@ const parseFile = (folderPath: string, fileName: string) => {
     const frontMatter = matter<Attributes>(fileContents);
 
     const mutators = [
-        {prop: "words", func: getWordCount},
-        {prop: "description", func: getDescription},
-        {prop: "created", func: getDate},
+        {prop: "words", func: getWordCount, pred:notEqual},
+        {prop: "description", func: getDescription, pred:notEqual},
+        {prop: "created", func: getDate, pred: notExists},
     ];
 
     let hasChanges = false;
     for(const mutator of mutators)
     {
         const value = mutator.func(frontMatter.body);
-        if(value !=  frontMatter.attributes[frontMatter.attributes[mutator.prop]]){
+        if(mutator.pred(value,frontMatter.attributes[mutator.prop])){
             frontMatter.attributes[mutator.prop] = value;
             hasChanges = true;
         }
