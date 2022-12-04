@@ -12,3 +12,8 @@ h3 {
 .info {
     margin-top: auto;
 }
+
+a, a:hover {
+    text-decoration: none;
+  }
+  

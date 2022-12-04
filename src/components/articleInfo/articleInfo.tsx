@@ -9,7 +9,6 @@ type Props = {
 }
 
 export default component$(({date,wordCount }: Props) => {
-    //const rootUrl = href.split('/').slice(0,3).join('/');
     useStylesScoped$(styles);
     return (
                     <div class="details">
@@ -22,9 +21,6 @@ export default component$(({date,wordCount }: Props) => {
                                 <p>{new Date(Number(date)).toLocaleDateString()}</p>
                                 <p>&#x2022;</p>
                                 <p>{Math.round(Number(wordCount)/200)} min read</p>
-                                {
-                                    /* <p>&#x2022;</p>
-                                 {tags.map(tag => <a class="chip" href={`${rootUrl}/tag/${tag.toLowerCase()}`}>{tag}</a>)} */}
                             </div>
                         </div>
                     </div>
