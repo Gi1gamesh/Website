@@ -15,7 +15,7 @@ export default component$(({ articles }: Props) => {
     const baseUrl = href.split("/").slice(0,-1).join('/');
     return (
         <div class='cards'>
-            {/* {articles.map(a => (<Card article={a} rootUrl={baseUrl} />))} */}
+            {articles.map(a => (<Card article={a} rootUrl={baseUrl} />))}
         </div>
     );
 });
