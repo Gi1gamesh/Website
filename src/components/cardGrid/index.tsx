@@ -2,7 +2,6 @@ import { component$, useStylesScoped$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import { ArticleData } from '~/types';
 import Card from '../card';
-
 import styles from './index.css?inline';
 
 type Props = {

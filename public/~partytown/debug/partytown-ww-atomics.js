@@ -1,4 +1,4 @@
-/* Partytown 0.7.1 - MIT builder.io */
+/* Partytown 0.7.2 - MIT builder.io */
 (self => {
     const WinIdKey = Symbol();
     const InstanceIdKey = Symbol();
@@ -539,7 +539,9 @@
         name: applyPath.join("."),
         continue: HookContinue,
         nodeName: instance[InstanceDataKey],
-        constructor: getConstructorName(instance)
+        constructor: getConstructorName(instance),
+        instance: instance,
+        window: environments[instance[WinIdKey]].$window$
     });
     const addStorageApi = (win, storageName, storages, isSameOrigin, env) => {
         let getItems = items => {
@@ -722,7 +724,7 @@
         return resolvedUrl;
     };
     const resolveUrl = (env, url, type) => resolveToUrl(env, url, type) + "";
-    const getPartytownScript = () => `<script src="${partytownLibUrl("partytown.js?v=0.7.1")}"><\/script>`;
+    const getPartytownScript = () => `<script src="${partytownLibUrl("partytown.js?v=0.7.2")}"><\/script>`;
     const createImageConstructor = env => class HTMLImageElement {
         constructor() {
             this.s = "";
@@ -1297,7 +1299,7 @@
                         (() => {
                             if (!webWorkerCtx.$initWindowMedia$) {
                                 self.$bridgeToMedia$ = [ getter, setter, callMethod, constructGlobal, definePrototypePropertyDescriptor, randomId, WinIdKey, InstanceIdKey, ApplyPathKey ];
-                                webWorkerCtx.$importScripts$(partytownLibUrl("partytown-media.js?v=0.7.1"));
+                                webWorkerCtx.$importScripts$(partytownLibUrl("partytown-media.js?v=0.7.2"));
                                 webWorkerCtx.$initWindowMedia$ = self.$bridgeFromMedia$;
                                 delete self.$bridgeFromMedia$;
                             }
