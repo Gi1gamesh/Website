@@ -8,7 +8,9 @@ export default component$(() => {
     <>
       <Header />
       <main class="content-wrapper main-content">
+        <div class="content-flex-container">
           <Slot />
+        </div>
       </main>
       <Footer />
     </>

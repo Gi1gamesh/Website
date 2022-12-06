@@ -4,7 +4,7 @@ import posts from '../../../blogData/article-manifest.json';
 
 export const onGet: RequestHandler<any> = async ({ response,url }) => {
     response.headers.set("content-type","text/xml");
-    const baseUrl = url.toString().replace("/rss","")
+    const baseUrl = url.toString().replace("/sitemap","")
     const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
@@ -15,7 +15,7 @@ export const onGet: RequestHandler<any> = async ({ response,url }) => {
             posts
             .map((p:ArticleData) => `
                 <url>
-                <loc>${baseUrl}/article/${p.path}</loc>
+                <loc>${baseUrl}/article/${p.path}/</loc>
                 <lastmod>${new Date(p.created).toISOString()}</lastmod>
                 </url>`)
             .join('')
