@@ -1,4 +1,4 @@
-import { component$, useStore, $, useStyles$, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useStore, $, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './index.css?inline';
 
 type Sum = {
