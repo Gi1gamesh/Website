@@ -2,6 +2,16 @@ import { createQwikCity } from '@builder.io/qwik-city/middleware/cloudflare-page
 import qwikCityPlan from '@qwik-city-plan';
 import render from './entry.ssr';
 
-const onRequest = createQwikCity({ render, qwikCityPlan });
+const onRequest = createQwikCity({
+    render,
+    qwikCityPlan,
+    prefetchStrategy: {
+        implementation: {
+            linkInsert: null,
+            workerFetchInsert: 'always',
+            prefetchEvent: 'always',
+        },
+    }
+});
 
 export { onRequest };
