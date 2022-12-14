@@ -1,4 +1,4 @@
-import { component$, useStore, $, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useStore, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './index.css?inline';
 
 type Sum = {
@@ -7,31 +7,31 @@ type Sum = {
 }
 
 type State = {
-  sums: Sum[]
+  value: string
 }
+
+export const SumList = component$(({value}: State ) => 
+{
+  const values = value.split('--');
+  const sums = [];
+  for(let i = 1; i<values.length; i+=2)
+  {
+    const sum = (values[i+1].match(/\b\d+(?:[.,]\d+)*\b/g) || []).reduce((acc, num) => acc + Number(num), 0); 
+    sums.push({category: values[i], sum})
+  }
+
+  return <div>{sums.map(s => (<div class="sum-category"><b>{s.category}</b>: {s.sum}</div>))}</div>
+})
 
 export default component$(() => {
   useStylesScoped$(styles);
-  const state = useStore<State>({ sums:[] });
+  const state = useStore<State>({ value: '' });
 
-  const setSums = $((value: string) => { 
-
-    const values = value.split('--');
-    const newValues = [];
-    for(let i = 1; i<values.length; i+=2)
-    {
-      const sum = (values[i+1].match(/\b\d+(?:[.,]\d+)*\b/g) || []).reduce((acc, num) => acc + Number(num), 0); 
-      newValues.push({category: values[i], sum})
-    }
-    state.sums = newValues;
-  });
-
-  const getNodes = $((sums:Sum[]) => sums.map(s => (<div class="sum-category"><b>{s.category}</b>: {s.sum}</div>) ))
   return (
     <div class="sum-container">
-      <textarea class="sum-input" onChange$={event => setSums(event.target.value)}/>
+      <textarea class="sum-input" onChange$={event => state.value = event.target.value}/>
       <div class="sum-categories">
-        {getNodes(state.sums)}
+        <SumList value={state.value} />
       </div>
     </div >
   );
