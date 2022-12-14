@@ -20,7 +20,7 @@ export const SumList = component$(({value}: State ) =>
     sums.push({category: values[i], sum})
   }
 
-  return <div>{sums.map(s => (<div class="sum-category"><b>{s.category}</b>: {s.sum}</div>))}</div>
+  return <div>{sums.map(s => (<div class="sum-category"><b>{s.category}</b>: {s.sum+''}</div>))}</div>
 })
 
 export default component$(() => {
