@@ -1,4 +1,4 @@
-/* Partytown 0.7.2 - MIT builder.io */
+/* Partytown 0.7.3 - MIT builder.io */
 (self => {
     const WinIdKey = Symbol();
     const InstanceIdKey = Symbol();
@@ -54,6 +54,7 @@
     };
     const EMPTY_ARRAY = [];
     const randomId = () => Math.round(Math.random() * Number.MAX_SAFE_INTEGER).toString(36);
+    const SCRIPT_TYPE = "text/partytown";
     const defineProperty = (obj, memberName, descriptor) => Object.defineProperty(obj, memberName, {
         ...descriptor,
         configurable: true
@@ -716,7 +717,7 @@
         return resolvedUrl;
     };
     const resolveUrl = (env, url, type) => resolveToUrl(env, url, type) + "";
-    const getPartytownScript = () => `<script src="${partytownLibUrl("partytown.js?v=0.7.2")}"><\/script>`;
+    const getPartytownScript = () => `<script src="${partytownLibUrl("partytown.js?v=0.7.3")}"><\/script>`;
     const createImageConstructor = env => class HTMLImageElement {
         constructor() {
             this.s = "";
@@ -728,9 +729,9 @@
             return this.s;
         }
         set src(src) {
-            webWorkerCtx.$config$.logImageRequests && logWorker(`Image() request: ${resolveUrl(env, src, null)}`, env.$winId$);
+            webWorkerCtx.$config$.logImageRequests && logWorker(`Image() request: ${resolveUrl(env, src, "image")}`, env.$winId$);
             this.s = src;
-            fetch(resolveUrl(env, src, null), {
+            fetch(resolveUrl(env, src, "image"), {
                 mode: "no-cors",
                 credentials: "include",
                 keepalive: true
@@ -847,7 +848,8 @@
     };
     const innerHTMLDescriptor = {
         get() {
-            return getInstanceStateValue(this, 3) || "";
+            const type = getter(this, [ "type" ]);
+            return isScriptJsType(type) ? getInstanceStateValue(this, 3) || "" : getter(this, [ "innerHTML" ]);
         },
         set(scriptContent) {
             setInstanceStateValue(this, 3, scriptContent);
@@ -1195,7 +1197,23 @@
                             xhr.send();
                             xhrStatus = xhr.status;
                             if (xhrStatus > 199 && xhrStatus < 300) {
-                                setter(this, [ "srcdoc" ], `<base href="${src}">` + xhr.responseText.replace(/<script>/g, '<script type="text/partytown">').replace(/<script /g, '<script type="text/partytown" ').replace(/text\/javascript/g, "text/partytown") + getPartytownScript());
+                                setter(this, [ "srcdoc" ], `<base href="${src}">` + function(text) {
+                                    return text.replace(SCRIPT_TAG_REGEXP, ((_, attrs) => {
+                                        const parts = [];
+                                        let hasType = false;
+                                        let match;
+                                        while (match = ATTR_REGEXP.exec(attrs)) {
+                                            let [keyValue] = match;
+                                            if (keyValue.startsWith("type=")) {
+                                                hasType = true;
+                                                keyValue = keyValue.replace(/(application|text)\/javascript/, SCRIPT_TYPE);
+                                            }
+                                            parts.push(keyValue);
+                                        }
+                                        hasType || parts.push('type="text/partytown"');
+                                        return `<script ${parts.join(" ")}>`;
+                                    }));
+                                }(xhr.responseText) + getPartytownScript());
                                 sendToMain(true);
                                 webWorkerCtx.$postMessage$([ 7, env.$winId$ ]);
                             } else {
@@ -1210,6 +1228,9 @@
         };
         definePrototypePropertyDescriptor(WorkerHTMLIFrameElement, HTMLIFrameDescriptorMap);
     };
+    const ATTR_REGEXP_STR = "((?:\\w|-)+(?:=(?:(?:\\w|-)+|'[^']*'|\"[^\"]*\")?)?)";
+    const SCRIPT_TAG_REGEXP = new RegExp(`<script\\s*((${ATTR_REGEXP_STR}\\s*)*)>`, "mg");
+    const ATTR_REGEXP = new RegExp(ATTR_REGEXP_STR, "mg");
     const getIframeEnv = iframe => {
         const $winId$ = iframe[InstanceIdKey];
         environments[$winId$] || createEnvironment({
@@ -1291,7 +1312,7 @@
                         (() => {
                             if (!webWorkerCtx.$initWindowMedia$) {
                                 self.$bridgeToMedia$ = [ getter, setter, callMethod, constructGlobal, definePrototypePropertyDescriptor, randomId, WinIdKey, InstanceIdKey, ApplyPathKey ];
-                                webWorkerCtx.$importScripts$(partytownLibUrl("partytown-media.js?v=0.7.2"));
+                                webWorkerCtx.$importScripts$(partytownLibUrl("partytown-media.js?v=0.7.3"));
                                 webWorkerCtx.$initWindowMedia$ = self.$bridgeFromMedia$;
                                 delete self.$bridgeFromMedia$;
                             }

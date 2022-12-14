@@ -26,11 +26,12 @@ export default component$(() => {
     state.sums = newValues;
   });
 
+  const getNodes = $((sums:Sum[]) => sums.map(s => (<div class="sum-category"><b>{s.category}</b>: {s.sum}</div>) ))
   return (
     <div class="sum-container">
       <textarea class="sum-input" onChange$={event => setSums(event.target.value)}/>
       <div class="sum-categories">
-        {state.sums.map(s => (<div class="sum-category"><b>{s.category}</b>: {s.sum}</div>) )}
+        {getNodes(state.sums)}
       </div>
     </div >
   );
