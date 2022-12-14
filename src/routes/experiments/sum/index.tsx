@@ -1,4 +1,4 @@
-import { component$, useStore, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './index.css?inline';
 
 type Sum = {
@@ -20,12 +20,12 @@ export const SumList = component$(({value}: State ) =>
     sums.push({category: values[i], sum})
   }
 
-  return <div>{sums.map(s => (<div class="sum-category"><b>{s.category}</b>: {s.sum+''}</div>))}</div>
+  return <>{sums.map((s, uniqueKey) => (<div class="sum-category" key={uniqueKey}><b>{s.category}</b>: {s.sum}</div>))}</>
 })
 
 export default component$(() => {
   useStylesScoped$(styles);
-  const state = useStore<State>({ value: '' });
+  const state = useSignal('');
 
   return (
     <div class="sum-container">
