@@ -1,10 +1,6 @@
 import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './index.css?inline';
 
-type Sum = {
-  category: string,
-  sum: number
-}
 
 type State = {
   value: string
@@ -29,7 +25,7 @@ export default component$(() => {
 
   return (
     <div class="sum-container">
-      <textarea class="sum-input" onChange$={event => state.value = event.target.value}/>
+      <textarea class="sum-input" onChange$={(event) => {state.value = event.target.value}}/>
       <div class="sum-categories">
         {/* <SumList value={state.value} /> */}
         {state.value}
