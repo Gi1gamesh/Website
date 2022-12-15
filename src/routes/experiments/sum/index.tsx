@@ -28,7 +28,6 @@ export default component$(() => {
       <textarea class="sum-input" onChange$={(event) => {state.value = event.target.value}}/>
       <div class="sum-categories">
         { <SumList text={state.value} /> }
-        {state.value}
       </div>
     </div >
   );
