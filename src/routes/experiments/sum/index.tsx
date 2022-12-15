@@ -2,13 +2,13 @@ import { component$, useSignal, useStylesScoped$ } from '@builder.io/qwik';
 import styles from './index.css?inline';
 
 
-type State = {
-  value: string
+type Props = {
+  text: string
 }
 
-export const SumList = component$(({value}: State ) => 
+export const SumList = component$(({text}: Props ) => 
 {
-  const values = value.split('--');
+  const values = text.split('--');
   const sums = [];
   for(let i = 1; i<values.length; i+=2)
   {
@@ -27,7 +27,7 @@ export default component$(() => {
     <div class="sum-container">
       <textarea class="sum-input" onChange$={(event) => {state.value = event.target.value}}/>
       <div class="sum-categories">
-        {/* <SumList value={state.value} /> */}
+        { <SumList text={state.value} /> }
         {state.value}
       </div>
     </div >
