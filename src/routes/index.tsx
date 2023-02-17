@@ -15,7 +15,7 @@ export default component$(() => {
 });
 
 
-export const head: DocumentHead<any> = ({ href }) => {
+export const head: DocumentHead = ({ href }) => {
   return {
     title: siteData.author,
     links: [

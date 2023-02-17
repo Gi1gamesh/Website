@@ -2,9 +2,9 @@ import { RequestHandler  } from '@builder.io/qwik-city';
 import { ArticleData } from '~/types';
 import posts from '../../../blogData/article-manifest.json';
 
-export const onGet: RequestHandler<any> = async ({ response,url }) => {
-    response.headers.set("content-type","text/xml");
-    const baseUrl = url.toString().replace("/sitemap","")
+export const onGet: RequestHandler = async ({ url,headers,send }) => {
+    const baseUrl = url.toString().replace("/sitemap","");
+    headers.set("content-type","text/xml");
     const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
@@ -22,7 +22,6 @@ export const onGet: RequestHandler<any> = async ({ response,url }) => {
         }
         </urlset>`;
 
-
-    return rssFeed
+    send(200, rssFeed);
   };
 
