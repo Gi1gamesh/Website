@@ -13,7 +13,7 @@ export default component$(() => {
 
 const title = `${siteData.author} - About Me`
 
-export const head: DocumentHead<any> = ({ href }) => {
+export const head: DocumentHead = ({ href }) => {
     return {
         title: title,
         links: [
