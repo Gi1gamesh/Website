@@ -17,8 +17,8 @@ const buildRssItems = (url: string,items: ArticleData[]): string => items
       })
       .join("");
 
-export const onGet: RequestHandler<any> = async ({ response,url }) => {
-    response.headers.set("content-type","text/xml");
+export const onGet: RequestHandler = async ({send ,url,headers }) => {
+    headers.set("content-type","text/xml");
     const baseUrl = url.toString().replace("/rss","")
     const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -31,6 +31,6 @@ export const onGet: RequestHandler<any> = async ({ response,url }) => {
 </rss>`;
 
 
-    return rssFeed
+    send(200,rssFeed)
   };
 
