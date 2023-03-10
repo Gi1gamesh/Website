@@ -5,9 +5,9 @@ import styles from './index.css?inline';
 
 export const modules = import.meta.glob('../../../../blogData/articles/*.mdx');
 
-export const onGet: RequestHandler<any> = async ({ params }) => {
+export const onGet: RequestHandler = async ({ params,json }) => {
   const post: any = await modules[`../../../../blogData/articles/${params.id}.mdx`]();
-  return ({ metadata: post.frontmatter, head: post.head })
+  json(200,{ metadata: post.frontmatter, head: post.head })
 };
 
 
@@ -29,22 +29,22 @@ export default component$((async () => {
   </article>);
 }) as any);
 
-export const head: DocumentHead<any> = ({ data, href }) => {
+export const head: DocumentHead = ({  url }) => {
   return {
-    title: data.metadata.title,
+    title: "",//data.metadata.title,
     links: [
-      { rel: "cannonical", href: href }
+      //{ rel: "cannonical", href: url }
     ],
     meta: [
 
-      { name: "og:site_name", content:  data.metadata.author },
-      { name: 'og:title', content: data.metadata.title },
-      { name: 'og:description', content: data.metadata.description },
-      { name: 'description', content: data.metadata.description },
-      { name: 'og:url', content: href },
-      { name: 'og:image', content: "./background.png" },
-      { name: 'og:image:url', content: "./background.png" },
-      { name: 'twitter:image', content: "./background.png" },
+      // { name: "og:site_name", content:  data.metadata.author },
+      // { name: 'og:title', content: data.metadata.title },
+      // { name: 'og:description', content: data.metadata.description },
+      // { name: 'description', content: data.metadata.description },
+      // { name: 'og:url', content: url },
+      // { name: 'og:image', content: "./background.png" },
+      // { name: 'og:image:url', content: "./background.png" },
+      // { name: 'twitter:image', content: "./background.png" },
     ]
   }
 };

@@ -20,7 +20,7 @@ export default function (opts: RenderToStreamOptions) {
     ...opts,
     prefetchStrategy: {
       implementation: {
-        linkInsert:  'html-append',
+        linkInsert: null,
         workerFetchInsert: 'always',
         prefetchEvent: 'always',
       },
